@@ -11,7 +11,7 @@ interface FormData {
   email: string;
   mensagem: string;
   tempo: string;
-  empresa: string;
+  empresas: string;
   representa: string;
   segmento: string;
   propostaFile: File | null;
@@ -33,7 +33,7 @@ export const Formulario = () => {
     telefone: "",
     email: "",
     tempo: "",
-    empresa: "",
+    empresas: "",
     representa: "",
     segmento: "",
     mensagem: "",
@@ -124,6 +124,7 @@ export const Formulario = () => {
         id="tempo"
         type="text"
         name="tempo"
+        required
         onChange={handleChange}
         className="mb-5 h-[40px] md:w-[600px] rounded text-black px-2"
       />
@@ -133,6 +134,7 @@ export const Formulario = () => {
         id="empresas"
         type="text"
         name="empresas"
+        required
         onChange={handleChange}
         className="mb-5 h-[40px] md:w-[600px] rounded text-black px-2"
       />
@@ -142,6 +144,7 @@ export const Formulario = () => {
         id="representa"
         type="text"
         name="representa"
+        required
         onChange={handleChange}
         className="mb-5 h-[40px] md:w-[600px] rounded text-black px-2"
       />
@@ -150,8 +153,9 @@ export const Formulario = () => {
       <select
         id="segmento"
         value={formData.segmento}
-        onChange={handleSelectChange}
         name="segmento"
+        required
+        onChange={handleSelectChange}
         className="mb-5 h-[40px] md:w-[600px] rounded text-black px-2"
       >
         {
@@ -163,6 +167,7 @@ export const Formulario = () => {
       <textarea
         id="mensagem"
         name="mensagem"
+        required
         rows={5}
         onChange={handleChange}
         className="mb-5 md:w-[600px] rounded text-black px-2"
