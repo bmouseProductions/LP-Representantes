@@ -22,9 +22,11 @@ export default function Section2() {
             </div>
 
             {/* FORM */}
-            <div className="mb-20 px-5 flex gap-28">
+            <div className="mb-20 px-5 flex justify-center items-center gap-28 ">
                 <Formulario />
-                <img src={dalmata} alt="ilustração de um dalmata" className="max-w-md hidden xl:block"/>
+                <div className="hidden xl:block w-1/3">
+                    <img src={dalmata} alt="ilustração de um dalmata" className=" hidden xl:block"/>
+                </div>
             </div>
 
             {/* GONDOLA */}
