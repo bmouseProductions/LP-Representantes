@@ -1,8 +1,7 @@
-import axios from 'axios';
+import sgMail from '@sendgrid/mail';
+import FormData from 'form-data';
 
-export const api = axios.create({
-  baseURL: 'https://backend-zoomiesrepresentantes.onrender.com',
-});
+sgMail.setApiKey('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');
 
 interface PropsFormData {
   nome: string;
@@ -11,38 +10,60 @@ interface PropsFormData {
   tempo: string;
   empresas: string;
   representa: string;
-  segmento: string;
+  segmento: string[];
   mensagem: string;
   propostaFile: File | null;
   propostaName: string;
 }
 
 export const enviarEmail = async (formData: PropsFormData) => {
-  const { nome, telefone, email, tempo, empresas, representa, segmento, mensagem, propostaFile, propostaName } = formData;
+  const {
+    nome,
+    telefone,
+    email,
+    tempo,
+    empresas,
+    representa,
+    segmento,
+    mensagem,
+    propostaFile,
+    propostaName,
+  } = formData;
 
-  const formDataToSend = new FormData();
-  formDataToSend.append('nome', nome);
-  formDataToSend.append('telefone', telefone);
-  formDataToSend.append('email', email);
-  formDataToSend.append('tempo', tempo);
-  formDataToSend.append('empresas', empresas);
-  formDataToSend.append('representa', representa);
-  formDataToSend.append('segmento', segmento);
-  formDataToSend.append('mensagem', mensagem);
-
-  if (propostaFile) {
-    formDataToSend.append('propostaFile', propostaFile, propostaName);
-  }
+  const msg = {
+    to: 'matheustxr.profissional@gmail.com', // Substitua pelo seu destinatário
+    from: email, // Substitua pelo seu remetente
+    subject: 'Assunto do E-mail',
+    text: `Nome: ${nome}\nTelefone: ${telefone}\nEmail: ${email}\nTempo: ${tempo}\nEmpresas: ${empresas}\nRepresenta: ${representa}\nSegmento: ${segmento.join(', ')}\nMensagem: ${mensagem}`,
+  };
 
   try {
-    const response = await api.post('/send', formDataToSend, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+    if (propostaFile) {
+      const fileContent = await propostaFile.text();
+      const blob = new Blob([fileContent], { type: propostaFile.type });
 
-    if (response.status === 200) {
+      const form = new FormData();
+      form.append('file', blob, propostaName);
+
+      // Enviar o email com o anexo usando a API do SendGrid
+      await sgMail.send(msg);
+
+      // Enviar o arquivo anexado
+      await sgMail.send({
+        to: 'matheustxr.profissional@gmail.com',
+        from: email,
+        text: 'mensagem do email',
+        subject: 'Testando Email',
+        attachments: [
+          {
+            content: form.getBuffer(),
+            filename: form.getHeaders()['content-disposition'].split('=')[1],
+            type: 'application/pdf', // Defina o tipo apropriado aqui
+          },
+        ],
+      });
+
       window.alert('Email enviado com sucesso!');
-    } else {
-      window.alert('Erro ao enviar o email. Tente novamente.');
     }
   } catch (error) {
     console.error('Erro ao enviar o email:', error);

@@ -1,5 +1,5 @@
 import Acordion from "../../components/accordion/Index";
-import { Formulario } from "../../components/formulario/Index";
+import { Formulario2 } from "../../components/formulario2/Index";
 
 import dalmata from '../../assets/dalmata.webp'
 import gondola from '../../assets/gondola.webp'
@@ -23,7 +23,7 @@ export default function Section2() {
 
             {/* FORM */}
             <div className="mb-20 px-5 flex justify-center items-center gap-28 ">
-                <Formulario />
+                <Formulario2 />
                 <div className="hidden xl:block w-1/3">
                     <img src={dalmata} alt="ilustração de um dalmata" className=" hidden xl:block"/>
                 </div>
