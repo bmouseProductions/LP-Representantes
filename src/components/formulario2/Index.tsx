@@ -39,7 +39,6 @@ export const Formulario2 = () => {
     propostaName: "",
   });
 
-  const propostaFileRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
     const { id, value } = e.target;
@@ -47,22 +46,6 @@ export const Formulario2 = () => {
       ...prevData,
       [id]: value
     }));
-  };
-
-  const handleFileUpload = () => {
-    const file = propostaFileRef.current?.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        console.log("Arquivo:", reader.result);
-        setFormData((prevData) => ({
-          ...prevData,
-          propostaFile: file,
-          propostaName: file.name
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
   };
   
   const handleSegmentoChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -81,6 +64,24 @@ export const Formulario2 = () => {
         segmento: updatedSegmento,
       };
     });
+  };
+
+  const propostaFileRef = useRef<HTMLInputElement | null>(null);
+
+  const handleFileUpload = () => {
+    const file = propostaFileRef.current?.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        console.log("Arquivo:", reader.result);
+        setFormData((prevData) => ({
+          ...prevData,
+          propostaFile: file,
+          propostaName: file.name
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
