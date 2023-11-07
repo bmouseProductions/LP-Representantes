@@ -28,6 +28,7 @@ const segmentos = [
 
 export const Formulario2 = () => {
   const [emailExists, setEmailExists] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false); // Estado para controlar o loading
   const [formData, setFormData] = useState<FormData>({
     nome: "",

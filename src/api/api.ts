@@ -1,9 +1,10 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: "https://backend-zoomiesrepresentantes.onrender.com",
 });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const enviarEmail = async (formData: any) => {
   return await api.post("/send-email", formData, {
     headers: {
