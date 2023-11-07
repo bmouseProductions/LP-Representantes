@@ -30,6 +30,7 @@ export const Formulario2 = () => {
   const [emailExists, setEmailExists] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false); // Estado para controlar o loading
+  const [isSending, setIsSending] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     nome: "",
     telefone: "",
@@ -42,6 +43,7 @@ export const Formulario2 = () => {
     propostaFile: null,
     propostaName: "",
   });
+
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
@@ -104,7 +106,7 @@ export const Formulario2 = () => {
       });
 
       console.log("Resposta do servidor Node.js:", response.data);
-      console.log("Email enviado:", emailResponse.data);
+      //console.log("Email enviado:", emailResponse.data);
 
       alert("Cadastro realizado com sucesso!");
 
@@ -194,8 +196,11 @@ export const Formulario2 = () => {
 
     try {
       await enviarEmail(formData);
+      setIsSending(true)
     } catch (error) {
       console.error("Something is wrong", error);
+    } finally{
+      setIsSending(false)
     }
   };
 
@@ -310,6 +315,7 @@ export const Formulario2 = () => {
         variant="contained"
         id="styleButton"
         endIcon={<SendIcon />}
+        disabled={isSending}
       >
         Enviar
       </Button>
