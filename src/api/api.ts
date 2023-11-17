@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "https://backend-zoomiesrepresentantes.onrender.com",
+  baseURL: "https://banckednzomies.onrender.com/",
 });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
